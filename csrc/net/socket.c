@@ -3,6 +3,7 @@
 EXTERN_C_BEGIN
 
 socket_t CreateSecSocket(int domain, int type, int proto) {
+    
     socket_t sock;
     sock = socket(domain, type, proto);
     

@@ -32,10 +32,4 @@ all: $(TARGET)
 
 .PHONY: clean
 clean:
-	@echo CLEAN $(CLEAN_LIST)
-	@rm -f $(CLEAN_LIST)
-
-.PHONY: distclean
-distclean:
-	@echo CLEAN $(CLEAN_LIST)
-	@rm -f $(DISTCLEAN_LIST)
+	@rm -f *.o

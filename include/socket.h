@@ -45,6 +45,7 @@ EXTERN_C_BEGIN
 socket_t CreateSecSocket(int domain, int type, int proto);
 port_t GetRandomPort(int seedterm);
 port_t GetRandomRangePort(port_t *exclude, port_t begin, port_t end, int seedterm);
+
 void CloseSocket(socket_t socket);
 
 EXTERN_C_END
