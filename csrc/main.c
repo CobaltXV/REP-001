@@ -21,7 +21,7 @@
 #   define STD_PORT 502
 #endif
 
-#define DEBUG
+// #define DEBUG
 
 #ifdef DEBUG
 #   ifndef DEBUG_LOG
@@ -45,6 +45,18 @@ extern int main(int argc, char **argv) {
     // TODO: AF_INET6 SUPPORT
     socket_t socket = CreateSecSocket(AF_INET, SOCK_STREAM, 0);
     if (socket < 0) { return (1); }
+
+    sockaddr_in_t servSocket = CreateSockAddrInput(NULL, INADDR_ANY, AF_INET, STD_PORT);
+    if (BindSockWithAddr(socket, &servSocket) == 1) {
+        DEBUG_LOG("Cleaning up..\n");
+
+        CloseSocket(socket);
+        return (1);
+    }
+
+    if (listen(socket, 5) < 0) {
+        // TODO: ERROR
+    }
 
     DEBUG_LOG("Cleaning Up..\n");
     CloseSocket(socket);

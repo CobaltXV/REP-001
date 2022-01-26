@@ -46,4 +46,41 @@ void CloseSocket(socket_t socket) {
     // TODO: ERROR
 }
 
+sockaddr_in_t CreateSockAddrInput(const char * restrict ip, int ip_define, int domain, port_t port) {
+    if ((ip_define == 0 && ip == NULL) || port == 0) {
+        // TODO: ERROR
+    }
+
+    sockaddr_in_t sockaddr;
+    memset(&sockaddr, '\0', sizeof(sockaddr_in_t));
+
+    sockaddr.sin_port = htons(port);
+    sockaddr.sin_family = domain;
+
+    if (ip == NULL && ip_define != 0) {
+        sockaddr.sin_addr.s_addr = ip_define;
+        return (sockaddr);
+    }
+
+    else if (inet_pton(domain, ip, &sockaddr.sin_addr) <= 0) {
+        // TODO: ERROR
+    }
+
+    return (sockaddr);
+}
+
+int BindSockWithAddr(socket_t socket, sockaddr_in_t *addr) {
+    if (socket <= 0 || addr == NULL) {
+        // TODO: ERROR
+    }
+
+    else {
+        if (bind(socket, (sockaddr_t *) addr, sizeof(addr)) < 0) {
+            // TODO: ERROR
+        }
+    }
+
+    return (1);
+}
+
 EXTERN_C_END
