@@ -5,8 +5,7 @@ HEADER_PATH := ../include
 # tool macros
 CC := gcc
 CCFLAGS := -Wall -Wextra -pedantic -I$(HEADER_PATH)
-DBGFLAGS := -g
-CCOBJFLAGS := $(CCFLAGS) -c
+DBGFLAGS := -g -DDEBUG
 
 # compile macros
 TARGET_NAME := program-001
@@ -15,21 +14,21 @@ ifeq ($(OS),Windows_NT)
 endif
 
 TARGET := $(TARGET_NAME)
-TARGET_DEBUG := $(TARGET_NAME)
 
 # src files & obj files
 SRC := ../$(SRC_PATH)/*.c ../$(SRC_PATH)/net/*.c ../$(SRC_PATH)/enc/*.c
 
 # default rule
-default: all
+default: $(TARGET)
 
-# non-phony targets
+debug:
+	$(CC) $(CCFLAGS) $(DBGFLAGS) -o $(TARGET_NAME) $(SRC)
+
 $(TARGET): 
 	$(CC) $(CCFLAGS) -o $@ $(SRC)
 
-.PHONY: all
-all: $(TARGET)
-
+# phony targets
 .PHONY: clean
 clean:
 	@rm -f *.o
+	@rm -f $(TARGET_NAME)
